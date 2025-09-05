@@ -1,15 +1,32 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Book</title>
+    <title>Recipe App</title>
 </head>
 <body>
-     {% block content %}
-        
-     {% endblock %}
+    <header>
+        <nav>
+            <div>
+                <a href="{% url 'recipe-list' %}">Home</a>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                    <span>Hi, {{ user.username }}!</span>
+                    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
 
+    <hr>
+
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
