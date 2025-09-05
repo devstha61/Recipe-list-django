@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ recipe.title }}</h2>
+
+    {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width:300px; height:auto;">
+    {% endif %}
+
+    <p><strong>Author:</strong> {{ recipe.author.username }}</p>
+    <p><strong>Created at:</strong> {{ recipe.created_at|date:"F j, Y" }}</p>
+
+    <h3>Ingredients</h3>
+    <p>{{ recipe.ingredients|linebreaks }}</p>
+
+    <h3>Instructions</h3>
+    <p>{{ recipe.instructions|linebreaks }}</p>
+
+    <a href="{% url 'recipe-list' %}">← Back to all recipes</a>
+{% endblock %}
