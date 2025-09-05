@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>All Recipes</h2>
-<ul>
+<h2 style="text-align:center; margin-bottom: 20px;">All Recipes</h2>
+
+<div class="recipe-grid">
     {% for recipe in recipes %}
-        <li>
-            <a href="{% url 'recipe-detail' recipe.pk %}">{{ recipe.title }}</a>
-        </li>
+        <a href="{% url 'recipe-detail' recipe.pk %}" class="recipe-card">
+            {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+            {% endif %}
+            <h3>{{ recipe.title }}</h3>
+        </a>
     {% empty %}
-        <li>No recipes yet.</li>
+        <p>No recipes yet.</p>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
