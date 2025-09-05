@@ -1,11 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Register</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
-<a href="{% url 'login' %}">Already have an account? Login</a>
+<div class="form-container">
+    <h2>Register</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="id_username">Username</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+            <div class="error">{{ form.username.errors|striptags }}</div>
+        {% endif %}
+
+        <label for="id_password1">Password</label>
+        {{ form.password1 }}
+        <div class="password-note">Your password must contain at least 8 characters.</div>
+        {% if form.password1.errors %}
+            <div class="error">{{ form.password1.errors|striptags }}</div>
+        {% endif %}
+
+        <label for="id_password2">Confirm Password</label>
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+            <div class="error">{{ form.password2.errors|striptags }}</div>
+        {% endif %}
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p style="text-align:center; margin-top:15px; color:#3b1e39;">
+        Already have an account? <a href="{% url 'login' %}" style="color:#f57c00;">Login</a>
+    </p>
+</div>
 {% endblock %}
