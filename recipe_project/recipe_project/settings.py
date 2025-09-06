@@ -123,9 +123,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-LOGIN_REDIRECT_URL = 'recipe-list'   
-LOGOUT_REDIRECT_URL = 'recipe-list' 
-
+LOGIN_URL = 'login'      
+LOGIN_REDIRECT_URL = 'recipe-list' 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

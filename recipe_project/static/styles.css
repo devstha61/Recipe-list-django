@@ -105,20 +105,28 @@ nav {
 /* ---------- FORM CONTAINER ---------- */
 .form-container {
     max-width: 420px;
-    margin: 50px auto;
+    margin: 80px auto;
     padding: 35px 30px;
-    background: #fdfdfd;
+    background: #fff; /* card-like background */
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+/* Heading */
+.form-container h2 {
+    margin-bottom: 25px;
+    color: #6a4fb0; /* purple heading */
+    font-size: 1.8rem;
 }
 
 /* ---------- FORM ELEMENTS ---------- */
-form input[type="text"],
-form input[type="password"],
-form input[type="email"] {
+.form-container form input[type="text"],
+.form-container form input[type="password"],
+.form-container form input[type="email"] {
     width: 100%;
     padding: 12px;
-    margin: 10px 0 5px 0;
+    margin: 10px 0 15px 0;
     border-radius: 6px;
     border: 1px solid #ccc;
     background-color: #fff;
@@ -127,32 +135,72 @@ form input[type="email"] {
     transition: all 0.3s ease;
 }
 
-form input:focus {
+/* Focus effect */
+.form-container form input:focus {
     outline: none;
-    border-color: #9b59b6;
+    border-color: #9b59b6;  /* purple border */
     background-color: #f5f3fb; /* subtle purple tint */
 }
 
-form input::placeholder {
-    color: #999;
+/* Labels */
+.form-container label {
+    display: block;
+    text-align: left;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #444;
 }
 
-/* ---------- FORM BUTTONS ---------- */
-form button {
+/* Help text / password note */
+.password-note, .help-text {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Error messages */
+.error {
+    color: #e74c3c; /* red errors */
+    font-size: 0.85rem;
+    margin-top: 3px;
+}
+
+/* ---------- FORM BUTTON ---------- */
+.form-container form button {
     width: 100%;
     padding: 12px;
     border-radius: 6px;
     border: none;
-    background: #9b59b6;
+    background: #9b59b6; /* purple */
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
-form button:hover {
-    background: #8e44ad;
+.form-container form button:hover {
+    background: #8e44ad; /* darker purple hover */
+}
+
+/* ---------- Footer text / alternate link ---------- */
+.form-container p {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #3b1e39;
+}
+
+.form-container p a {
+    color: #f57c00; /* orange link */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-container p a:hover {
+    text-decoration: underline;
 }
 
 /* ---------- HEADINGS ---------- */
@@ -160,14 +208,6 @@ h2 {
     text-align: center;
     margin-bottom: 25px;
     color: #333;
-}
-
-/* ---------- PASSWORD NOTE ---------- */
-.password-note {
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 15px;
-    font-style: italic;
 }
 
 /* ---------- LINKS ---------- */
@@ -180,7 +220,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Container */
+/* ---------- RECIPE DETAIL ---------- */
 .recipe-detail-container {
     display: flex;
     max-width: 1000px;
@@ -324,7 +364,7 @@ a:hover {
     background: #8e44ad;
 }
 
-/* Responsive */
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
     .recipe-detail-container {
         flex-direction: column;
@@ -337,5 +377,9 @@ a:hover {
     .recipe-info {
         max-height: none;
         padding: 20px;
+    }
+    .form-container {
+        margin: 50px 20px;
+        padding: 25px 20px;
     }
 }
