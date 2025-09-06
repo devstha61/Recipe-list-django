@@ -8,28 +8,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<body>
+    {% if user.is_authenticated %}
     <header>
         <nav>
             <div class="nav-left">
                 <a href="{% url 'recipe-list' %}">Home</a>
             </div>
             <div class="nav-right">
-                {% if user.is_authenticated %}
-                    <span>Hi, {{ user.username }}!</span>
-                    <form method="post" action="{% url 'logout' %}" class="nav-form">
-                        {% csrf_token %}
-                        <button type="submit">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}" class="nav-button">Login</a>
-                    <a href="{% url 'register' %}" class="nav-button">Register</a>
-                {% endif %}
+                <span>Hi, {{ user.username }}!</span>
+                <form method="post" action="{% url 'logout' %}" class="nav-form">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
             </div>
         </nav>
     </header>
-
     <hr>
+    {% endif %}
 
     {% block content %}
     {% endblock %}
