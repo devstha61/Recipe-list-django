@@ -6,11 +6,57 @@
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
 
-        <button type="submit" class="btn btn-save">
-            {% if create %}Create{% else %}Save Changes{% endif %}
-        </button>
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="error">{{ form.title.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="error">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.ingredients.id_for_label }}">Ingredients</label>
+            {{ form.ingredients }}
+            {% if form.ingredients.errors %}
+                <div class="error">{{ form.ingredients.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.instructions.id_for_label }}">Instructions</label>
+            {{ form.instructions }}
+            {% if form.instructions.errors %}
+                <div class="error">{{ form.instructions.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Image</label>
+            {{ form.image }}
+            {% if form.image.errors %}
+                <div class="error">{{ form.image.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-check">
+            {{ form.publish }}
+            <label for="{{ form.publish.id_for_label }}">Publish now</label>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit">
+                {% if create %}Create{% else %}Save{% endif %}
+            </button>
+        </div>
     </form>
 </div>
 {% endblock %}
