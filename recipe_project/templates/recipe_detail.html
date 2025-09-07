@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block content %}
 <div class="recipe-detail-container">
     <div class="recipe-image">
         {% if recipe.image %}
@@ -26,11 +26,12 @@
             <p>{{ recipe.instructions|linebreaks }}</p>
         </div>
 
+        {% if user == recipe.author %}
         <div class="recipe-actions">
-            <a href="#" class="btn btn-edit">✏️ Edit</a>
-            <a href="#" class="btn btn-delete">🗑 Delete</a>
-            <a href="#" class="btn btn-save">💾 Save Changes</a>
+            <a href="{% url 'recipe-edit' recipe.pk %}" class="btn btn-edit">✏️ Edit</a>
+            <a href="{% url 'recipe-delete' recipe.pk %}" class="btn btn-delete">🗑 Delete</a>
         </div>
+        {% endif %}
 
         <div class="back-link">
             <a href="{% url 'recipe-list' %}">← Back to all recipes</a>

@@ -4,29 +4,33 @@
 <head>
     <title>Recipe App</title>
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     {% if user.is_authenticated %}
     <header>
         <nav>
+            <!-- Left side: Home + Create -->
             <div class="nav-left">
-                <a href="{% url 'recipe-list' %}">Home</a>
+                <a href="{% url 'recipe-list' %}" class="nav-logo">Home</a>
+                <a href="{% url 'recipe-create' %}" class="nav-button nav-create">+ Create Recipe</a>
             </div>
+
+            <!-- Right side: User + Logout -->
             <div class="nav-right">
-                <span>Hi, {{ user.username }}!</span>
+                <span class="nav-user">Hi, {{ user.username }}!</span>
                 <form method="post" action="{% url 'logout' %}" class="nav-form">
                     {% csrf_token %}
-                    <button type="submit">Logout</button>
+                    <button type="submit" class="nav-button">Logout</button>
                 </form>
             </div>
         </nav>
     </header>
-    <hr>
     {% endif %}
 
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>

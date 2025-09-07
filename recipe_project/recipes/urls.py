@@ -9,4 +9,7 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('register/', views.register, name='register'),
+    path('recipe/create/', views.recipe_create, name='recipe-create'),
+    path('recipe/<int:pk>/edit/', views.recipe_edit, name='recipe-edit'),
+    path('recipe/<int:pk>/delete/', views.recipe_delete, name='recipe-delete'),
 ]
