@@ -21,4 +21,5 @@ media/
 .DS_Store
 Thumbs.db
 
-#
+# Ignore default placeholder image
+*/static/default_recipe.jpg
