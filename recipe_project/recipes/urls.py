@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import CustomLoginView
+from .views import CustomLoginView, my_recipes
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('recipe/create/', views.recipe_create, name='recipe-create'),
     path('recipe/<int:pk>/edit/', views.recipe_edit, name='recipe-edit'),
     path('recipe/<int:pk>/delete/', views.recipe_delete, name='recipe-delete'),
+    path('my-recipes/', my_recipes, name='my-recipes'),
 ]

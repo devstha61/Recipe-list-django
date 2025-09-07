@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="recipe-grid">
+    <!-- Unpublished Recipes -->
+    {% if unpublished_recipes %}
+        <h2 style="width:100%; text-align:center; margin-bottom:20px; color:#e74c3c;">Unpublished Recipes</h2>
+        {% for recipe in unpublished_recipes %}
+            <div class="recipe-card">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                {% else %}
+                    <img src="{% static 'default_recipe.jpg' %}" alt="No Image">
+                {% endif %}
+                <h3>{{ recipe.title }}</h3>
+                <span class="badge-unpublished">Unpublished</span>
+                <div class="recipe-actions">
+                    <a href="{% url 'recipe-detail' recipe.pk %}" class="btn btn-save">View</a>
+                    <a href="{% url 'recipe-edit' recipe.pk %}" class="btn btn-edit">Edit</a>
+                    <a href="{% url 'recipe-delete' recipe.pk %}" class="btn btn-delete">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Published Recipes -->
+    {% if published_recipes %}
+        <h2 style="width:100%; text-align:center; margin-bottom:20px; color:#6a4fb0;">Published Recipes</h2>
+        {% for recipe in published_recipes %}
+            <div class="recipe-card">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+                {% else %}
+                    <img src="{% static 'default_recipe.jpg' %}" alt="No Image">
+                {% endif %}
+                <h3>{{ recipe.title }}</h3>
+                <div class="recipe-actions">
+                    <a href="{% url 'recipe-detail' recipe.pk %}" class="btn btn-save">View</a>
+                    <a href="{% url 'recipe-edit' recipe.pk %}" class="btn btn-edit">Edit</a>
+                    <a href="{% url 'recipe-delete' recipe.pk %}" class="btn btn-delete">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if not published_recipes and not unpublished_recipes %}
+        <p style="width:100%; text-align:center; font-size:1.2rem; color:#666;">You have no recipes yet. <a href="{% url 'recipe-create' %}">Create one!</a></p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -11,8 +11,9 @@ from .forms import RecipeForm
 
 @login_required
 def recipe_list(request):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.filter(published_at__isnull=False)
     return render(request, 'recipe_list.html', {'recipes': recipes})
+
 
 @login_required
 def recipe_detail(request, pk):
@@ -50,13 +51,17 @@ def recipe_create(request):
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
+            # Handle publish checkbox
             if form.cleaned_data.get("publish"):
                 recipe.published_at = timezone.now()
+            else:
+                recipe.published_at = None
             recipe.save()
             return redirect("recipe-detail", pk=recipe.pk)
     else:
         form = RecipeForm()
     return render(request, "recipe_form.html", {"form": form, "create": True})
+
 
 @login_required
 def recipe_edit(request, pk):
@@ -66,17 +71,24 @@ def recipe_edit(request, pk):
     if request.user != recipe.author:
         return HttpResponseForbidden("You are not allowed to edit this recipe.")
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RecipeForm(request.POST, request.FILES, instance=recipe)
         if form.is_valid():
-            form.save()
-            return redirect('recipe-detail', pk=recipe.pk)
+            recipe = form.save(commit=False)
+            # Handle publish checkbox
+            if form.cleaned_data.get("publish"):
+                recipe.published_at = timezone.now()
+            else:
+                recipe.published_at = None
+            recipe.save()
+            return redirect("recipe-detail", pk=recipe.pk)
     else:
-        form = RecipeForm(instance=recipe)
+        # Pre-fill the publish checkbox based on current status
+        initial_data = {"publish": recipe.published_at is not None}
+        form = RecipeForm(instance=recipe, initial=initial_data)
 
-    return render(request, 'recipe_form.html', {'form': form, 'create': False})
+    return render(request, "recipe_form.html", {"form": form, "create": False})
 
-@login_required
 def recipe_delete(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
 
@@ -89,3 +101,15 @@ def recipe_delete(request, pk):
         return redirect('recipe-list')
 
     return render(request, 'recipe_confirm_delete.html', {'recipe': recipe})
+
+@login_required
+def my_recipes(request):
+    user = request.user
+    published_recipes = Recipe.objects.filter(author=user, published_at__isnull=False)
+    unpublished_recipes = Recipe.objects.filter(author=user, published_at__isnull=True)
+
+    context = {
+        'published_recipes': published_recipes,
+        'unpublished_recipes': unpublished_recipes,
+    }
+    return render(request, 'my_recipes.html', context)
